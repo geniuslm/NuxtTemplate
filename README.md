@@ -18,7 +18,10 @@ pnpm run build
 # pnpm
 pnpm run preview
 ```
+## 图标集合
 
+[图标浏览网站连接
+](https://icones.js.org/collection/heroicons)
 
 
 

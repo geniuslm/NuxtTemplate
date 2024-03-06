@@ -1,12 +1,21 @@
-<script setup lang="ts">
+<template>
+  <div>
+    <h1>Color mode: {{ $colorMode.value }}</h1>
+    <select v-model="$colorMode.preference">
+      <option value="system">System</option>
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+      <option value="sepia">Sepia</option>
+    </select>
+    <UButton >颜色</UButton>
+  </div>
+</template>
+
+<script setup>
 
 </script>
 
-<template>
-    <UButton>这里是主页.vue</UButton>
-       哈哈哈<Icon name="uil:github" color="red" />
-</template>
+<style>
 
-<style scoped>
 
 </style>
