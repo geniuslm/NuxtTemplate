@@ -10,18 +10,18 @@
     </select>
     <!-- 颜色按钮，这里没有指定功能 -->
     <UButton>颜色</UButton>
-    <UTextarea   />
+    <UTextarea/>
     <p class="text-primary-500">这是一个段落</p>
 
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 
 
 const appConfig = useAppConfig();
 
 // 定义默认颜色列表
-const defaultColors = ref(['green', 'teal','red','orange','amber','yellow', 'cyan', 'sky', 'blue', 'indigo', 'violet']);
+const defaultColors = ref(['lime', 'green', 'teal', 'red', 'orange', 'amber', 'yellow', 'cyan', 'sky', 'blue', 'indigo', 'violet']);
 </script>

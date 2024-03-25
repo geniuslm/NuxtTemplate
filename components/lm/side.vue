@@ -38,15 +38,17 @@ const iconSizeClass = computed(() => asideWidth.value === 'w-48' ? 'w-5 h-5' : '
 const uiSettings = computed(() => ({
   icon: {
     base: `transition-all duration-300 ease-in-out ${iconSizeClass.value} `,
+    active: 'text-primary-700 dark:text-primary-500',
+    inactive: 'group-hover:text-primary-700 dark:group-hover:text-primary-600',
   },
   base: 'h-14',
-  wrapper: 'm-1',
+  wrapper: 'm-1 ',
   // 其他 UI 设置...
 }));
 </script>
 
 <template>
-  <aside :class="`bg-gray-900 text-white ${asideWidth} transition-width duration-300 ease-in-out`"
+  <aside :class="`rounded  bg-gray-900 text-white ${asideWidth} transition-width duration-300 ease-in-out`"
          @mouseenter="expandAside" @mouseleave="shrinkAside">
     <!-- 使用 VerticalNavigation 组件 -->
     <UVerticalNavigation :links="links" :ui="uiSettings"/>
