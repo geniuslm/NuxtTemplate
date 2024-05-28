@@ -7,6 +7,7 @@
       <option value="dark">Dark</option>
       <option value="sepia">Sepia</option>
     </select>
+    <H1>这页是Index</H1>
     <UButton >颜色</UButton>
   </div>
 </template>

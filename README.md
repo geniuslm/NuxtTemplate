@@ -18,6 +18,11 @@ pnpm run build
 # pnpm
 pnpm run preview
 ```
+```bash
+# pnpm 生成静态网站 到 .output public 
+pnpm run generate
+```
+
 ## 图标集合
 
 [图标浏览网站连接

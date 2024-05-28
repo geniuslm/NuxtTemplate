@@ -15,6 +15,7 @@ function shrinkAside() {
   asideWidth.value = 'w-14'; // 收缩回默认宽度 w-10
 }
 
+//这是路由
 const links = [
   {
     label: '主页',
@@ -30,7 +31,13 @@ const links = [
     label: 'Page 2',
     icon: 'i-heroicons-academic-cap-20-solid',  // 假设的图标，根据实际需要更换
     to: '/page2'
-  }];
+  },
+  {
+    label: 'Page 3',
+    icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
+    to: '/page3'
+  }
+];
 
 // 根据 asideWidth 的值动态调整图标大小
 const iconSizeClass = computed(() => asideWidth.value === 'w-48' ? 'w-5 h-5' : 'w-7 h-7');

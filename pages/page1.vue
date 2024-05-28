@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-auto w-full bg-gray-900 rounded  p-2">
     <!-- 显示当前选中的颜色 -->
     <h1>当前颜色是: {{ appConfig.ui.primary }}</h1>
     <!-- 颜色选择器 -->
