@@ -6,16 +6,16 @@
 开始开发服务器在 `http://localhost:3000`:
 
 ```bash
-# pnpm
+# 开始开发服务器，访问地址：http://localhost:3000
 pnpm run dev
 ```
 ```bash
-# pnpm
+# 构建项目
 pnpm run build
 ```
 
 ```bash
-# pnpm
+# 预览构建后的项目
 pnpm run preview
 ```
 ```bash
@@ -29,7 +29,13 @@ pnpm run generate
 ](https://icones.js.org/collection/heroicons)
 
 
-
-
-
+## 更新项目
+```bash
+# 检查过期的包:
+pnpm outdated
+```
+```bash
+# 更新所有包到它们的最新版本
+pnpm update
+```
 
