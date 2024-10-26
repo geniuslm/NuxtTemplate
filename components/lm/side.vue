@@ -36,7 +36,23 @@ const links = [
     label: 'Page 3',
     icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
     to: '/page3'
+  },
+  {
+    label: 'Page 4',
+    icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
+    to: '/page4'
+  },
+  {
+    label: 'Page 5',
+    icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
+    to: '/page5'
+  },
+  {
+    label: 'Page 6',
+    icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
+    to: '/page6'
   }
+
 ];
 
 // 根据 asideWidth 的值动态调整图标大小

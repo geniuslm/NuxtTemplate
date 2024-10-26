@@ -1,5 +1,5 @@
 <template>
-  <div class="h-auto w-full bg-gray-900 rounded  p-2">
+  <div class="flex flex-col overflow-y-auto   w-full bg-gray-900 rounded  p-2">
     <!-- 显示当前选中的颜色 -->
     <h1>当前颜色是: {{ appConfig.ui.primary }}</h1>
     <!-- 颜色选择器 -->
@@ -9,10 +9,16 @@
       <!-- 静态定义的主题颜色选项 -->
     </select>
     <!-- 颜色按钮，这里没有指定功能 -->
-    <UButton>颜色</UButton>
-    <UTextarea/>
-    <p class="text-primary-500">这是一个段落</p>
-
+    <div class="flex-col gap-2 overflow-y-auto bg-gray-900 rounded  p-2">
+      <UButton>颜色</UButton>
+      <UTextarea class="h-80 w-full bg-gray-900 rounded  p-2"/>
+      <UTextarea class="h-80 w-full bg-gray-900 rounded  p-2"/>
+      <UTextarea class="h-80 w-full bg-gray-900 rounded  p-2"/>
+      <UTextarea class="h-80 w-full bg-gray-900 rounded  p-2"/>
+      <UTextarea class="h-80 w-full bg-gray-900 rounded  p-2"/>
+      <UTextarea class="h-80 w-full bg-gray-900 rounded  p-2"/>
+      <p class="text-primary-500">这是一个段落</p>
+    </div>
   </div>
 </template>
 
