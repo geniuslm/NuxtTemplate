@@ -2,51 +2,61 @@
 import { ref, onMounted } from 'vue'
 import { Socket, io } from 'socket.io-client'
 
-// 直接初始化 socket
-const socket: Socket = io('http://localhost:4000')
-
+// 修改 socket 初始化方式
+const socket = ref<Socket | null>(null)
 const messages = ref<string[]>([])
 const audioFiles = ref<string[]>([])
 const inputMessage = ref('')
+const currentPlayingFile = ref<string>('')
+const ttsInput = ref('')
+const isTTSProcessing = ref(false)
 
-// Socket.IO 连接
+// 添加音频实例的引用
+const currentAudio = ref<HTMLAudioElement | null>(null)
+
+// 在 onMounted 中初始化 socket
 onMounted(() => {
-  // 连接事件
-  console.log('尝试连接Socket.IO服务器...')
-  socket.emit('连接')
+  socket.value = io('http://localhost:4000')
   
-  // 监听消息
-  socket.on('消息', (data: string) => {
-    console.log('收到服务器消息:', data)
-    messages.value.push(data)
-  })
+  if (!socket.value) return
 
-  // 添加连接状态监听
-  socket.on('connect', () => {
+  console.log('尝试连接Socket.IO服务器...')
+  socket.value.emit('连接')
+
+  socket.value.on('连接成功', () => {
     console.log('Socket.IO连接成功!')
+    messages.value.push('已连接到服务器')
   })
 
-  socket.on('connect_error', (error: any) => {
-    console.error('Socket.IO连接错误:', error)
-  })
+  // 添加TTS结果监听
+  socket.value.on('TTS_结果', (result: { success: boolean, filename?: string, error?: string }) => {
+    isTTSProcessing.value = false
 
-  // 获取音频文件列表
-  fetchAudioFiles()
+    if (result.success && result.filename) {
+      messages.value.push('TTS生成成功！')
+      获取音频文件列表() // 刷新音频列表
+      ttsInput.value = '' // 清空输入
+    } else {
+      messages.value.push(`TTS生成失败: ${result.error}`)
+    }
+  })
 })
 
-// 发送消息方法
-const sendMessage = () => {
-  if (inputMessage.value.trim()) {
-    console.log('发送消息:', inputMessage.value)
-    socket.emit('消息', inputMessage.value)
-    inputMessage.value = ''
+
+
+// 添加TTS发送方法
+const 发送TTS请求 = () => {
+  if (ttsInput.value.trim() && !isTTSProcessing.value && socket.value) {
+    isTTSProcessing.value = true
+    socket.value.emit('TTS', ttsInput.value)
+    messages.value.push('正在生成语音...')
   }
 }
 
 // 获取音频文件列表
-const fetchAudioFiles = async () => {
+const 获取音频文件列表 = async () => {
   try {
-    const response = await fetch('http://localhost:4000/audio-files')
+    const response = await fetch('http://localhost:4000/audio/files')
     const data = await response.json()
     audioFiles.value = data.files
   } catch (error) {
@@ -54,53 +64,66 @@ const fetchAudioFiles = async () => {
   }
 }
 
-// 页面加载时获取音频文件列表
-onMounted(() => {
-  fetchAudioFiles()
-})
+// 修改播放音频方法
+const 播放音频 = (filename: string) => {
+  // 如果点击的是当前正在播放的文件
+  if (currentPlayingFile.value === filename && currentAudio.value) {
+    if (currentAudio.value.paused) {
+      // 如果是暂停状态，继续播放
+      currentAudio.value.play()
+    } else {
+      // 如果正在播放，暂停
+      currentAudio.value.pause()
+    }
+    return
+  }
+
+  // 如果之前有播放的音频，停止它
+  if (currentAudio.value) {
+    currentAudio.value.pause()
+    currentAudio.value = null
+    currentPlayingFile.value = ''
+  }
+
+  // 播放新的音频
+  const audio = new Audio(`http://localhost:4000/audio/stream/${filename}`)
+  currentAudio.value = audio
+  currentPlayingFile.value = filename
+
+  audio.play()
+
+  // 监听音频播放结束
+  audio.onended = () => {
+    currentPlayingFile.value = ''
+    currentAudio.value = null
+  }
+}
+
+const 下载音频 = (filename: string) => {
+  window.open(`http://localhost:4000/audio/stream/${filename}`, '_blank')
+}
 </script>
 
 <template>
-  <div class="flex flex-col h-auto w-full bg-gray-900 rounded p-4 gap-4">
-    <!-- Socket.IO 测试区域 -->
-    <div class="space-y-4">
-      <h2 class="text-xl text-white">Socket.IO 测试</h2>
-      
-      <!-- 消息输入和发送 -->
-      <div class="flex gap-2">
-        <UInput
-          v-model="inputMessage"
-          placeholder="输入消息"
-          @keyup.enter="sendMessage"
-        />
-        <UButton @click="sendMessage">发送</UButton>
+  <div class="flex flex-col h-full rounded-3xl bg-gray-900 p-4">
+    <!-- TTS测试区域 - 固定部分 -->
+    <div class="mb-4">
+      <h2 class="text-xl text-white">TTS 测试</h2>
+      <div class="flex gap-2 mt-4">
+        <UInput v-model="ttsInput" placeholder="输入要转换的文本" :disabled="isTTSProcessing" @keyup.enter="发送TTS请求" />
+        <UButton @click="发送TTS请求" :loading="isTTSProcessing" :disabled="isTTSProcessing || !ttsInput.trim()">
+          生成语音
+        </UButton>
       </div>
-
-      <!-- 消息列表 -->
-      <div class="bg-gray-800 p-4 rounded max-h-40 overflow-y-auto">
-        <div v-for="(msg, index) in messages" :key="index" class="text-white">
-          {{ msg }}
-        </div>
-      </div>
+      <lm-log :messages="messages" />
     </div>
 
-    <!-- 音频文件列表 -->
-    <div class="space-y-4">
-      <div class="flex justify-between items-center">
-        <h2 class="text-xl text-white">音频文件列表</h2>
-        <UButton @click="fetchAudioFiles">刷新列表</UButton>
-      </div>
-      
-      <div class="bg-gray-800 p-4 rounded">
-        <div v-if="audioFiles.length === 0" class="text-gray-400">
-          暂无音频文件
-        </div>
-        <div v-else class="space-y-2">
-          <div v-for="file in audioFiles" :key="file" class="text-white">
-            {{ file }}
-          </div>
-        </div>
-      </div>
+    <!-- 音频列表区域 - 可滚动部分 -->
+    <div class="overflow-y-auto">
+      <lm-list 
+        :files="audioFiles"
+        @refresh="获取音频文件列表"
+      />
     </div>
   </div>
 </template>
