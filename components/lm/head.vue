@@ -6,7 +6,7 @@ const colorMode = useColorMode()
 <template>
   <div class="flex items-center justify-between rounded bg-gray-900 w-full p-4 gap-1.5">
     <UIcon class="text-primary-500 w-7 h-7"  name="heroicons:camera-solid"/>
-    <div class="text-2xl text-neutral-300 font-semibold ">李默直播工作室</div>
+    <div class="text-2xl text-neutral-300 font-semibold ">全自动无人直播工作室</div>
     <div class="flex-grow"></div>
     <ColorScheme>
       <!-- 将 $colorMode 改为 colorMode -->

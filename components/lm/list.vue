@@ -30,7 +30,7 @@ const 播放音频 = (filename: string) => {
   }
 
   // 播放新的音频
-  const audio = new Audio(`http://localhost:4000/audio/stream/${filename}`)
+  const audio = new Audio(`https://zb.lmgwr.com:4400/audio/stream/${filename}`)
   currentAudio.value = audio
   currentPlayingFile.value = filename
 
@@ -44,7 +44,7 @@ const 播放音频 = (filename: string) => {
 }
 
 const 下载音频 = (filename: string) => {
-  window.open(`http://localhost:4000/audio/stream/${filename}`, '_blank')
+  window.open(`https://zb.lmgwr.com:4400/audio/stream/${filename}`, '_blank')
 }
 </script>
 

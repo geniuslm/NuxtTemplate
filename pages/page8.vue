@@ -16,7 +16,7 @@ const currentAudio = ref<HTMLAudioElement | null>(null)
 
 // 在 onMounted 中初始化 socket
 onMounted(() => {
-  socket.value = io('http://localhost:4000')
+  socket.value = io('https://zb.lmgwr.com:4400')
 
   if (!socket.value) return
 
@@ -53,10 +53,10 @@ const 发送TTS请求 = () => {
   }
 }
 
-// 获取音频文件列表
+// 修改获取音频文件列表方法
 const 获取音频文件列表 = async () => {
   try {
-    const response = await fetch('http://localhost:4000/audio/files')
+    const response = await fetch('https://zb.lmgwr.com:4400/audio/files')
     const data = await response.json()
     audioFiles.value = data.files
   } catch (error) {
@@ -64,7 +64,7 @@ const 获取音频文件列表 = async () => {
   }
 }
 
-// 修改播放音频方法
+// 修改播放音频方法中的 URL
 const 播放音频 = (filename: string) => {
   // 如果点击的是当前正在播放的文件
   if (currentPlayingFile.value === filename && currentAudio.value) {
@@ -86,7 +86,7 @@ const 播放音频 = (filename: string) => {
   }
 
   // 播放新的音频
-  const audio = new Audio(`http://localhost:4000/audio/stream/${filename}`)
+  const audio = new Audio(`https://zb.lmgwr.com:4400/audio/stream/${filename}`)
   currentAudio.value = audio
   currentPlayingFile.value = filename
 
@@ -100,7 +100,7 @@ const 播放音频 = (filename: string) => {
 }
 
 const 下载音频 = (filename: string) => {
-  window.open(`http://localhost:4000/audio/stream/${filename}`, '_blank')
+  window.open(`https://zb.lmgwr.com:4400/audio/stream/${filename}`, '_blank')
 }
 </script>
 

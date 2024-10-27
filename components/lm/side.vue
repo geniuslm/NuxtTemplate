@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, computed} from 'vue';
+import { ref, computed } from 'vue';
 
 
 // 定义一个响应式引用，用于控制侧边导航的宽度
@@ -17,48 +17,48 @@ function shrinkAside() {
 
 //这是路由
 const links = [
+  // {
+  //   label: '主页',
+  //   icon: 'i-heroicons-home-20-solid', // 假设的图标，根据实际需要更换
+  //   to: '/'
+  // },
+  // {
+  //   label: 'Page 1',
+  //   icon: 'i-heroicons-document-duplicate', // 假设的图标，根据实际需要更换
+  //   to: '/page1'
+  // },
+  // {
+  //   label: 'Page 2',
+  //   icon: 'i-heroicons-academic-cap-20-solid',  // 假设的图标，根据实际需要更换
+  //   to: '/page2'
+  // },
+  // {
+  //   label: 'Page 3',
+  //   icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
+  //   to: '/page3'
+  // },
+  // {
+  //   label: 'Page 4',
+  //   icon: 'heroicons:adjustments-horizontal',  // 假设的图标，根据实际需要更换
+  //   to: '/page4'
+  // },
+  // {
+  //   label: 'Page 5',
+  //   icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
+  //   to: '/page5'
+  // },
+  // {
+  //   label: 'Page 6',
+  //   icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
+  //   to: '/page6'
+  // },
+  // {
+  //   label: '第七页',
+  //   icon: 'heroicons:bars-3-16-solid',  // 假设的图标，根据实际需要更换
+  //   to: '/page7'
+  // },
   {
-    label: '主页',
-    icon: 'i-heroicons-home-20-solid', // 假设的图标，根据实际需要更换
-    to: '/'
-  },
-  {
-    label: 'Page 1',
-    icon: 'i-heroicons-document-duplicate', // 假设的图标，根据实际需要更换
-    to: '/page1'
-  },
-  {
-    label: 'Page 2',
-    icon: 'i-heroicons-academic-cap-20-solid',  // 假设的图标，根据实际需要更换
-    to: '/page2'
-  },
-  {
-    label: 'Page 3',
-    icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
-    to: '/page3'
-  },
-  {
-    label: 'Page 4',
-    icon: 'heroicons:adjustments-horizontal',  // 假设的图标，根据实际需要更换
-    to: '/page4'
-  },
-  {
-    label: 'Page 5',
-    icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
-    to: '/page5'
-  },
-  {
-    label: 'Page 6',
-    icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
-    to: '/page6'
-  },
-  {
-    label: '第七页',
-    icon: 'heroicons:bars-3-16-solid',  // 假设的图标，根据实际需要更换
-    to: '/page7'
-  },
-  {
-    label: '第八页',
+    label: '测试页面',
     icon: 'heroicons:bars-3-16-solid',  // 假设的图标，根据实际需要更换
     to: '/page8'
   }
@@ -82,13 +82,12 @@ const uiSettings = computed(() => ({
 
 <template>
   <aside :class="`rounded  bg-gray-900 text-white ${asideWidth} transition-width duration-300 ease-in-out`"
-         @mouseenter="expandAside" @mouseleave="shrinkAside">
+    @mouseenter="expandAside" @mouseleave="shrinkAside">
     <!-- 使用 VerticalNavigation 组件 -->
-    <UVerticalNavigation :links="links" :ui="uiSettings"/>
+    <UVerticalNavigation :links="links" :ui="uiSettings" />
   </aside>
 </template>
 
 <style scoped>
 /* 可以在这里添加一些额外的样式，如果需要 */
-
 </style>
