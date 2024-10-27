@@ -1,15 +1,16 @@
 <script setup lang="ts">
-
+// 添加这一行来引入 useColorMode
+const colorMode = useColorMode()
 </script>
 
 <template>
   <div class="flex items-center justify-between rounded bg-gray-900 w-full p-4 gap-1.5">
-    <UIcon class="text-primary-500 w-7 h-7"  name="i-heroicons-shopping-bag-solid"/>
-
-    <div class="text-2xl text-neutral-300 font-semibold ">李默眼镜工作室</div>
+    <UIcon class="text-primary-500 w-7 h-7"  name="heroicons:camera-solid"/>
+    <div class="text-2xl text-neutral-300 font-semibold ">李默直播工作室</div>
     <div class="flex-grow"></div>
     <ColorScheme>
-      <USelect v-model="$colorMode.preference" :options="['system', 'light', 'dark', 'sepia']"/>
+      <!-- 将 $colorMode 改为 colorMode -->
+      <USelect v-model="colorMode.preference" :options="['system', 'light', 'dark', 'sepia']"/>
     </ColorScheme>
   </div>
 </template>

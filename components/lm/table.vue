@@ -143,8 +143,8 @@ const setSelectedRange = () => {
     <UButton @click="setSelectedRange">确定范围</UButton>
   </UButtonGroup>
   <UCard class="flex flex-col flex-1   overflow-y-auto  ">
-    <UTable class="flex flex-col flex-1   " v-model="selected" :rows="people"
-            :ui="{ td: { base: 'max-w-[0] truncate' }, default: { checkbox: { color: 'gray' } } }">
+    <UTable class="flex flex-col flex-1" v-model="selected" :rows="people"
+            :ui="{ td: { base: 'max-w-[0] truncate' }, default: { checkbox: { color: 'primary' } } }">
       <!-- 定义一个插槽，用于显示状态图标 -->
       <template #status-data="{ row }">
         <UButton

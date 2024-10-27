@@ -1,0 +1,33 @@
+E:\Web_Project\Nuxt\nuxt_ui_template\
+├── components\
+│   ├── lm\
+│   │   ├── foot.vue
+│   │   ├── head.vue
+│   │   ├── side.vue
+│   │   ├── table.vue
+│   │   └── test.vue
+│   └── lm.vue
+├── pages\
+│   ├── index.vue
+│   ├── page1.vue
+│   ├── page2.vue
+│   ├── page3.vue
+│   ├── page4.vue
+│   ├── page5.vue
+│   └── page6.vue
+├── public\
+│   └── favicon.ico
+├── server\
+│   └── tsconfig.json
+├── tools\
+│   ├── directory_structure.txt
+│   └── 目录脚本.py
+├── .gitignore
+├── .npmrc
+├── README.md
+├── app.config.ts
+├── app.vue
+├── nuxt.config.ts
+├── package.json
+├── pnpm-lock.yaml
+└── tsconfig.json

@@ -11,10 +11,11 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
-    "@nuxt/ui": "^2.18.4",
-    "nuxt": "^3.12.4"
+    "@nuxt/ui": "^2.18.7",
+    "@types/socket.io-client": "^3.0.0",
+    "nuxt": "^3.13.2"
   },
   "dependencies": {
-    "nuxt-socket-io": "^3.0.13"
+    "socket.io-client": "^4.7.4"
   }
 }

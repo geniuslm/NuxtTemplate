@@ -39,7 +39,7 @@ const links = [
   },
   {
     label: 'Page 4',
-    icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
+    icon: 'heroicons:adjustments-horizontal',  // 假设的图标，根据实际需要更换
     to: '/page4'
   },
   {
@@ -51,6 +51,16 @@ const links = [
     label: 'Page 6',
     icon: 'i-heroicons-adjustments-horizontal-16-solid',  // 假设的图标，根据实际需要更换
     to: '/page6'
+  },
+  {
+    label: '第七页',
+    icon: 'heroicons:bars-3-16-solid',  // 假设的图标，根据实际需要更换
+    to: '/page7'
+  },
+  {
+    label: '第八页',
+    icon: 'heroicons:bars-3-16-solid',  // 假设的图标，根据实际需要更换
+    to: '/page8'
   }
 
 ];
