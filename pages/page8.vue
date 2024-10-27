@@ -17,7 +17,7 @@ const currentAudio = ref<HTMLAudioElement | null>(null)
 // 在 onMounted 中初始化 socket
 onMounted(() => {
   socket.value = io('http://localhost:4000')
-  
+
   if (!socket.value) return
 
   console.log('尝试连接Socket.IO服务器...')
@@ -107,7 +107,7 @@ const 下载音频 = (filename: string) => {
 <template>
   <div class="flex flex-col h-full rounded-3xl bg-gray-900 p-4">
     <!-- TTS测试区域 - 固定部分 -->
-    <div class="mb-4">
+    <div class="shrink-0 mb-4">
       <h2 class="text-xl text-white">TTS 测试</h2>
       <div class="flex gap-2 mt-4">
         <UInput v-model="ttsInput" placeholder="输入要转换的文本" :disabled="isTTSProcessing" @keyup.enter="发送TTS请求" />
@@ -118,12 +118,14 @@ const 下载音频 = (filename: string) => {
       <lm-log :messages="messages" />
     </div>
 
-    <!-- 音频列表区域 - 可滚动部分 -->
-    <div class="overflow-y-auto">
-      <lm-list 
-        :files="audioFiles"
-        @refresh="获取音频文件列表"
-      />
+    <!-- 添加标题和刷新按钮 -->
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl text-white">音频文件列表</h2>
+      <UButton @click="获取音频文件列表">刷新列表</UButton>
+    </div>
+    <!-- 音频列表区域 - 填充剩余空间 -->
+    <div class="flex-grow overflow-y-auto">
+      <lm-list class="h-full" :files="audioFiles" />
     </div>
   </div>
 </template>

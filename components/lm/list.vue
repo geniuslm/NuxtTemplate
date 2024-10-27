@@ -6,11 +6,6 @@ const props = defineProps<{
   files: string[]
 }>()
 
-// 定义事件
-const emit = defineEmits<{
-  refresh: []
-}>()
-
 // 音频控制相关的状态
 const currentPlayingFile = ref<string>('')
 const currentAudio = ref<HTMLAudioElement | null>(null)
@@ -54,60 +49,36 @@ const 下载音频 = (filename: string) => {
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <!-- 标题和刷新按钮 -->
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl text-white">音频文件列表</h2>
-      <UButton @click="emit('refresh')">刷新列表</UButton>
-    </div>
-
-    <!-- 直接使用 overflow-y-auto，类似 page2 的方式 -->
-    <div class="bg-gray-800 p-4 rounded overflow-y-auto">
-      <div v-if="files.length === 0" class="text-gray-400">
-        暂无音频文件
-      </div>
-      <div v-else class="space-y-2">
-        <div v-for="file in files" :key="file" :class="[
-          'text-white flex items-center justify-between p-2 rounded',
-          currentPlayingFile === file ? 'bg-primary-500 bg-opacity-20' : ''
-        ]">
-          <span>{{ file }}</span>
-          <div class="flex gap-2">
-            <UButton 
-              :icon="currentPlayingFile === file && currentAudio?.paused === false ? 'heroicons:pause-solid' : 'heroicons:play-solid'"
-              color="primary" 
-              variant="ghost" 
-              @click="播放音频(file)" 
-            />
-            <UButton 
-              icon="heroicons:arrow-down-tray-20-solid" 
-              color="primary" 
-              variant="ghost" 
-              @click="下载音频(file)" 
-            />
+  <div class="flex flex-col h-full">
+    <!-- 文件列表容器 - 现在占据整个空间 -->
+    <div class="h-full bg-gray-800 p-4 rounded">
+      <div class="h-full overflow-y-auto scrollbar-thin">
+        <div v-if="files.length === 0" class="text-gray-400">
+          暂无音频文件
+        </div>
+        <div v-else class="space-y-2">
+          <div v-for="file in files" :key="file" :class="[
+            'text-white flex items-center justify-between p-2 rounded',
+            currentPlayingFile === file ? 'bg-primary-500 bg-opacity-20' : ''
+          ]">
+            <span>{{ file }}</span>
+            <div class="flex gap-2">
+              <UButton 
+                :icon="currentPlayingFile === file && currentAudio?.paused === false ? 'heroicons:pause-solid' : 'heroicons:play-solid'"
+                color="primary" 
+                variant="ghost" 
+                @click="播放音频(file)" 
+              />
+              <UButton 
+                icon="heroicons:arrow-down-tray-20-solid" 
+                color="primary" 
+                variant="ghost" 
+                @click="下载音频(file)" 
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-/* 自定义滚动条样式 */
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: rgb(31, 41, 55); /* gray-800 */
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgb(75, 85, 99); /* gray-600 */
-  border-radius: 3px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgb(107, 114, 128); /* gray-500 */
-}
-</style>
