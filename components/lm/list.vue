@@ -29,7 +29,7 @@ const 播放音频 = (filename: string) => {
     currentPlayingFile.value = ''
   }
 
-  // 播放新的音频
+  // 播放新的音频 - 确保使用HTTPS
   const audio = new Audio(`https://zb.lmgwr.com:4400/audio/stream/${filename}`)
   currentAudio.value = audio
   currentPlayingFile.value = filename
@@ -38,12 +38,22 @@ const 播放音频 = (filename: string) => {
 
   // 监听音频播放结束
   audio.onended = () => {
-    currentPlayingFile.value = ''
-    currentAudio.value = null
+    // 获取当前文件在列表中的索引
+    const currentIndex = props.files.indexOf(filename)
+    // 如果还有下一个文件
+    if (currentIndex < props.files.length - 1) {
+      // 播放下一个文件
+      播放音频(props.files[currentIndex + 1])
+    } else {
+      // 如果是最后一个文件，重置状态
+      currentPlayingFile.value = ''
+      currentAudio.value = null
+    }
   }
 }
 
 const 下载音频 = (filename: string) => {
+  // 确保使用HTTPS
   window.open(`https://zb.lmgwr.com:4400/audio/stream/${filename}`, '_blank')
 }
 </script>

@@ -16,7 +16,11 @@ const currentAudio = ref<HTMLAudioElement | null>(null)
 
 // 在 onMounted 中初始化 socket
 onMounted(() => {
-  socket.value = io('https://zb.lmgwr.com:4400')
+  // 确保使用 HTTPS
+  socket.value = io('https://zb.lmgwr.com:4400', {
+    secure: true,
+    rejectUnauthorized: false
+  })
 
   if (!socket.value) return
 
@@ -56,11 +60,21 @@ const 发送TTS请求 = () => {
 // 修改获取音频文件列表方法
 const 获取音频文件列表 = async () => {
   try {
-    const response = await fetch('https://zb.lmgwr.com:4400/audio/files')
+    // 确保使用 HTTPS
+    const response = await fetch('https://zb.lmgwr.com:4400/audio/files', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
     const data = await response.json()
     audioFiles.value = data.files
   } catch (error) {
     console.error('获取音频文件失败:', error)
+    messages.value.push(`获取音频文件失败: ${error}`)
   }
 }
 
@@ -110,8 +124,19 @@ const 下载音频 = (filename: string) => {
     <div class="shrink-0 mb-4">
       <h2 class="text-xl text-white">TTS 测试</h2>
       <div class="flex gap-2 mt-4">
-        <UInput v-model="ttsInput" placeholder="输入要转换的文本" :disabled="isTTSProcessing" @keyup.enter="发送TTS请求" />
-        <UButton @click="发送TTS请求" :loading="isTTSProcessing" :disabled="isTTSProcessing || !ttsInput.trim()">
+        <UInput 
+          v-model="ttsInput" 
+          placeholder="输入要转换的文本" 
+          :disabled="isTTSProcessing" 
+          @keyup.enter="发送TTS请求"
+          class="flex-1"
+        />
+        <UButton 
+          @click="发送TTS请求" 
+          :loading="isTTSProcessing" 
+          :disabled="isTTSProcessing || !ttsInput.trim()"
+          class="shrink-0"
+        >
           生成语音
         </UButton>
       </div>
